@@ -10,7 +10,9 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 
-import { todoRoutes } from './routes/todo.routes.js';
+import { productRoutes } from './routes/products.routes.js';
+import { orderRoutes } from './routes/orders.routes.js';
+import { categoryRoutes } from './routes/categories.routes.js';
 import { HTTP_STATUS, HTTP_MESSAGES } from './constants/http.js';
 import { config } from './config.js';
 
@@ -67,6 +69,8 @@ app.setErrorHandler(
   }
 );
 
-app.register(todoRoutes, { prefix: '/api/todos' });
+app.register(orderRoutes, { prefix: '/api/order' });
+app.register(productRoutes, { prefix: '/api/products' });
+app.register(categoryRoutes, { prefix: '/api/categories' });
 
 export default app;
