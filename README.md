@@ -1,6 +1,6 @@
-# Todo API
+# Shop Service API
 
-A RESTful API for managing todos built with Fastify and PostgreSQL.
+A RESTful API for managing shop built with Fastify and PostgreSQL.
 
 ## Setup
 
@@ -19,7 +19,7 @@ A RESTful API for managing todos built with Fastify and PostgreSQL.
    PORT=3000
 
    # Database
-   DATABASE_URL=postgres://username:password@localhost:5432/todo_db
+   DATABASE_URL=postgres://username:password@localhost:5432/shop_db
    ```
 
 4. Start the app in docker:

@@ -35,8 +35,8 @@ app.register(rateLimit, config.rateLimit);
 app.register(swagger, {
   openapi: {
     info: {
-      title: 'Todo API',
-      description: 'A simple Todo API built with Fastify',
+      title: 'Shop Service API',
+      description: 'A simple Shop Service API built with Fastify',
       version: '1.0.0',
     },
   },

@@ -5,6 +5,6 @@ dist
 .gitignore
 .env
 *.md
-.DS_Store 
-prisma/src
-prisma/migrations
+.DS_Store
+!node_modules/.prisma
+tsconfig.tsbuildinfo

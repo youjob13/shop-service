@@ -6,12 +6,7 @@ import prisma from '../db.js';
 export class CategoryService {
   async createCategory(data: ICreateCategory): Promise<ICategory> {
     try {
-      return await prisma.category.create({
-        data: {
-          name: data.name,
-          description: data.description,
-        },
-      });
+      return await prisma.category.create({ data });
     } catch (error) {
       throw new AppError('Failed to create category', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
@@ -29,9 +24,7 @@ export class CategoryService {
 
   async getCategoryById(id: number): Promise<ICategory | null> {
     try {
-      return await prisma.category.findUnique({
-        where: { id },
-      });
+      return await prisma.category.findUnique({ where: { id } });
     } catch (error) {
       throw new AppError('Failed to fetch category', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
@@ -53,9 +46,7 @@ export class CategoryService {
 
   async deleteCategory(id: number): Promise<void> {
     try {
-      await prisma.category.delete({
-        where: { id },
-      });
+      await prisma.category.delete({ where: { id } });
     } catch (error) {
       throw new AppError('Failed to delete category', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
