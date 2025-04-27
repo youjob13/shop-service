@@ -1,7 +1,7 @@
 import app from './app.js';
 import { config } from './config.js';
 
-const start = async () => {
+const start = async (): Promise<void> => {
   try {
     await app.listen({
       port: config.port,

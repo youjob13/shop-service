@@ -6,7 +6,7 @@ import { TodoSchema, CreateTodoSchema, UpdateTodoSchema, TodoParamsSchema } from
 import { TodoService } from '../services/todo.service.js';
 import { HTTP_STATUS } from '../constants/http.js';
 
-export async function todoRoutes(fastify: FastifyInstance) {
+export async function todoRoutes(fastify: FastifyInstance): Promise<void> {
   const todoController = new TodoController(new TodoService());
 
   fastify.post('/', {

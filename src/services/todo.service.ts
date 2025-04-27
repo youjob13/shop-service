@@ -13,7 +13,7 @@ export class TodoService {
         },
       });
     } catch (error) {
-      throw new AppError('Failed to create todo', HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      throw new AppError('Failed to create todo', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
   }
 
@@ -25,7 +25,7 @@ export class TodoService {
 
       return todos;
     } catch (error) {
-      throw new AppError('Failed to fetch todos', HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      throw new AppError('Failed to fetch todos', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
   }
 
@@ -35,10 +35,7 @@ export class TodoService {
         where: { id },
       });
     } catch (error) {
-      if (error instanceof AppError) {
-        throw error;
-      }
-      throw new AppError('Failed to fetch todo', HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      throw new AppError('Failed to fetch todo', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
   }
 
@@ -49,10 +46,7 @@ export class TodoService {
         data: todo,
       });
     } catch (error) {
-      if (error instanceof AppError) {
-        throw error;
-      }
-      throw new AppError('Failed to update todo', HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      throw new AppError('Failed to update todo', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
   }
 
@@ -63,10 +57,7 @@ export class TodoService {
       });
       return null;
     } catch (error) {
-      if (error instanceof AppError) {
-        throw error;
-      }
-      throw new AppError('Failed to delete todo', HTTP_STATUS.INTERNAL_SERVER_ERROR);
+      throw new AppError('Failed to delete todo', HTTP_STATUS.INTERNAL_SERVER_ERROR, { error });
     }
   }
 }

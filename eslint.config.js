@@ -5,6 +5,9 @@ import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
 export default [
+  {
+    ignores: ['**/prisma/*', '**/dist/*', '**/tests/*', 'tsconfig.json'],
+  },
   js.configs.recommended,
   {
     files: ['**/*.ts'],

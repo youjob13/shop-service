@@ -8,7 +8,10 @@ import { HTTP_STATUS, HTTP_MESSAGES } from '../constants/http.js';
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
-  async createTodo(request: FastifyRequest<{ Body: ICreateTodo }>, reply: FastifyReply) {
+  async createTodo(
+    request: FastifyRequest<{ Body: ICreateTodo }>,
+    reply: FastifyReply
+  ): Promise<never> {
     try {
       const todo = await this.todoService.createTodo(request.body);
       return reply.code(HTTP_STATUS.CREATED).send(todo);
@@ -22,7 +25,7 @@ export class TodoController {
     }
   }
 
-  async getTodos(request: FastifyRequest, reply: FastifyReply) {
+  async getTodos(request: FastifyRequest, reply: FastifyReply): Promise<never> {
     try {
       const todos = await this.todoService.getTodos();
       return reply.code(HTTP_STATUS.OK).send(todos);
@@ -36,7 +39,10 @@ export class TodoController {
     }
   }
 
-  async getTodoById(request: FastifyRequest<{ Params: ITodoParams }>, reply: FastifyReply) {
+  async getTodoById(
+    request: FastifyRequest<{ Params: ITodoParams }>,
+    reply: FastifyReply
+  ): Promise<never> {
     try {
       const todo = await this.todoService.getTodoById(request.params.id);
       return reply.code(HTTP_STATUS.OK).send(todo);
@@ -53,7 +59,7 @@ export class TodoController {
   async updateTodo(
     request: FastifyRequest<{ Params: ITodoParams; Body: IUpdateTodo }>,
     reply: FastifyReply
-  ) {
+  ): Promise<never> {
     try {
       const todo = await this.todoService.updateTodo(request.params.id, request.body);
       return reply.code(HTTP_STATUS.OK).send(todo);
@@ -67,7 +73,10 @@ export class TodoController {
     }
   }
 
-  async deleteTodo(request: FastifyRequest<{ Params: ITodoParams }>, reply: FastifyReply) {
+  async deleteTodo(
+    request: FastifyRequest<{ Params: ITodoParams }>,
+    reply: FastifyReply
+  ): Promise<never> {
     try {
       await this.todoService.deleteTodo(request.params.id);
       return reply.code(HTTP_STATUS.NO_CONTENT).send();
