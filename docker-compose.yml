@@ -11,12 +11,12 @@ services:
       - NODE_ENV=${NODE_ENV:-development}
       - PORT=${PORT:-3000}
       - HOST=${HOST:-0.0.0.0}
-      - DATABASE_URL=postgres://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-shop_db}
+      - DATABASE_URL=postgres://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-shop_service_db}
       - DB_HOST=db
-      - DB_PORT=${DB_PORT:-5432}
+      - DB_PORT=5432
       - DB_USER=${DB_USER:-postgres}
       - DB_PASSWORD=${DB_PASSWORD:-postgres}
-      - DB_NAME=${DB_NAME:-shop_db}
+      - DB_NAME=${DB_NAME:-shop_service_db}
     depends_on:
       db:
         condition: service_healthy
@@ -34,13 +34,13 @@ services:
     environment:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
-      - POSTGRES_DB=${DB_NAME:-shop_db}
+      - POSTGRES_DB=${DB_NAME:-shop_service_db}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - shop_network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-shop_db}']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-shop_service_db}']
       interval: 5s
       timeout: 5s
       retries: 5

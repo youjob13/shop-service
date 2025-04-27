@@ -19,7 +19,7 @@ A RESTful API for managing shop built with Fastify and PostgreSQL.
    PORT=3000
 
    # Database
-   DATABASE_URL=postgres://username:password@localhost:5432/shop_db
+   DATABASE_URL=postgres://username:password@localhost:5432/shop_service_db
    ```
 
 4. Start the app in docker:
