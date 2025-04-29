@@ -9,7 +9,16 @@
   "exclude": ["node_modules", "dist", "**/*.test.ts"],
   "references": [
     {
-      "path": "../../packages/dto/tsconfig.json"
+      "path": "../shared/tsconfig.json"
+    },
+    {
+      "path": "../kafka-client/tsconfig.json"
+    },
+    {
+      "path": "../core/tsconfig.json"
+    },
+    {
+      "path": "../dto/tsconfig.json"
     }
   ]
 }

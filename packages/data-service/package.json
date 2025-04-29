@@ -1,5 +1,5 @@
 {
-  "name": "@shop/shop-service",
+  "name": "@shop/data-service",
   "version": "1.0.0",
   "main": "dist/index.js",
   "type": "module",
@@ -24,6 +24,9 @@
     "@fastify/type-provider-typebox": "^5.1.0",
     "@prisma/client": "^6.6.0",
     "@shop/core": "^1.0.0",
+    "@shop/dto": "^1.0.0",
+    "@shop/kafka-client": "1.0.0",
+    "@shop/shared": "^1.0.0",
     "fastify": "^5.3.2",
     "fastify-type-provider-zod": "^4.0.2",
     "http-status-codes": "^2.3.0",

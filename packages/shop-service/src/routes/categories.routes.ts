@@ -1,11 +1,18 @@
 import { FastifyInstance } from 'fastify';
+import { HTTP_STATUS } from '@shop/shared/http';
+import { z } from 'zod';
+import { initKafkaProducer } from '@shop/kafka-client/kafka-producer';
+
 import { CategoryController } from '../controllers/category.controller.js';
 import { CategoryService } from '../services/category.service.js';
 import { CategorySchema, CreateCategorySchema, UpdateCategorySchema } from '../schemas.js';
-import { HTTP_STATUS } from '../constants/http.js';
-import { z } from 'zod';
+import { config } from 'src/config.js';
+import { RpcService } from 'src/services/rpc.service.js';
 
 export async function categoryRoutes(fastify: FastifyInstance): Promise<void> {
+  const kafkaProducer = initKafkaProducer(config.kafka);
+  const rpcService = new RpcService(kafkaProducer);
+
   const categoryController = new CategoryController(new CategoryService());
 
   fastify.post('/', {

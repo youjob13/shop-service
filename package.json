@@ -6,10 +6,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "tsc -b tsconfig.app.json",
     "dev": "npm run dev --workspaces",
-    "lint": "npm run lint --workspaces",
-    "format": "npm run format --workspaces",
+    "lint": "npm run lint --if-present --workspaces",
+    "format": "npm run format --if-present --workspaces",
     "start:docker": "sudo docker-compose build --no-cache && sudo docker-compose up"
   },
   "devDependencies": {

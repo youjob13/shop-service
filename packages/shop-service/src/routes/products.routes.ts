@@ -9,8 +9,8 @@ import {
   ProductParamsSchema,
   ProductQuerySchema,
 } from '../schemas.js';
-import { ProductsService } from '../services/products.service.js';
-import { HTTP_STATUS } from '../constants/http.js';
+import { ProductsService } from '@shop/data-service/src/services/products.service.js';
+import { HTTP_STATUS } from '@shop/shared';
 
 export async function productRoutes(fastify: FastifyInstance): Promise<void> {
   const productController = new ProductController(new ProductsService());

@@ -9,7 +9,7 @@
   "exclude": ["node_modules", "dist", "**/*.test.ts"],
   "references": [
     {
-      "path": "../../packages/dto/tsconfig.json"
+      "path": "../../packages/shared/tsconfig.json"
     }
   ]
 }

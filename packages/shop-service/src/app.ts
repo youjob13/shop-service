@@ -13,7 +13,7 @@ import {
 import { productRoutes } from './routes/products.routes.js';
 import { orderRoutes } from './routes/orders.routes.js';
 import { categoryRoutes } from './routes/categories.routes.js';
-import { HTTP_STATUS, HTTP_MESSAGES } from './constants/http.js';
+import { HTTP_STATUS, HTTP_MESSAGES } from '@shop/shared/http';
 import { config } from './config.js';
 
 const app: FastifyInstance = fastify({

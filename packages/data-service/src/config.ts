@@ -14,19 +14,14 @@ const envSchema = z.object({
       max: 100,
       timeWindow: '1 minute',
     }),
-  KAFKA: z.object({
-    clientId: z.string(),
-    brokers: z.array(z.string()),
-  }),
 });
 
 const env = envSchema.parse(process.env);
 
 export const config = {
-  env: env.NODE_ENV,
-  port: env.PORT,
-  host: env.HOST,
-  databaseUrl: env.DATABASE_URL,
-  rateLimit: env.RATE_LIMIT,
-  kafka: env.KAFKA,
+  ENV: env.NODE_ENV,
+  PORT: env.PORT,
+  HOST: env.HOST,
+  DATABASE_URL: env.DATABASE_URL,
+  RATE_LIMIT: env.RATE_LIMIT,
 };

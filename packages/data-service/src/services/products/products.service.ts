@@ -1,9 +1,21 @@
-import { AppError } from '../errors.js';
-import prisma from '../db.js';
-import { HTTP_STATUS } from '../constants/http.js';
-import { ICreateProduct, IProduct, IProductQuery, IUpdateProduct } from '../schemas.js';
+import { AppError } from '@shop/shared/errors';
+import { HTTP_STATUS } from '@shop/shared/http';
+import { ICreateProduct, IProduct, IProductQuery, IUpdateProduct } from '@shop/dto/schemas';
 
-export class ProductsService {
+import prisma from '../../db.js';
+import { IProductService } from './IProductService.js';
+
+export class ProductsService implements IProductService {
+  private static instance: ProductsService;
+
+  constructor() {
+    if (new.target === ProductsService && !ProductsService.instance) {
+      ProductsService.instance = new ProductsService();
+    }
+
+    return ProductsService.instance;
+  }
+
   async createProduct(product: ICreateProduct): Promise<IProduct> {
     try {
       return await prisma.product.create({
