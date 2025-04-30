@@ -9,13 +9,6 @@ COPY packages/dto/package*.json ./packages/dto/
 COPY packages/kafka-client/package*.json ./packages/kafka-client/
 COPY packages/shared/package*.json ./packages/shared/
 
-COPY tsconfig*.json ./
-COPY packages/data-service/tsconfig*.json ./packages/data-service/
-COPY packages/core/tsconfig*.json ./packages/core/
-COPY packages/dto/tsconfig*.json ./packages/dto/
-COPY packages/kafka-client/tsconfig*.json ./packages/kafka-client/
-COPY packages/shared/tsconfig*.json ./packages/shared/
-
 COPY packages/data-service/prisma ./packages/data-service/prisma/
 
 RUN npm ci
@@ -31,9 +24,6 @@ WORKDIR /app/packages/data-service
 
 RUN npm run prisma:generate
 RUN npm run build
-
-# Verify the dist directory exists
-RUN ls -la dist || (echo "Build failed - dist directory not found" && exit 1)
 
 FROM node:20-alpine
 
@@ -66,15 +56,11 @@ RUN ln -s /app/packages/dto /app/node_modules/@shop/dto
 RUN ln -s /app/packages/kafka-client /app/node_modules/@shop/kafka-client
 RUN ln -s /app/packages/shared /app/node_modules/@shop/shared
 
-
-# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-# RUN chown -R appuser:appgroup /app
-# USER appuser
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN chown -R appuser:appgroup /app
+USER appuser
 
 WORKDIR /app/packages/data-service
-
-# Verify the dist directory exists
-RUN ls -la dist || (echo "Build failed - dist directory not found" && exit 1)
 
 EXPOSE ${PORT:-3003}
 
