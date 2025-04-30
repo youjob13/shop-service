@@ -25,7 +25,7 @@ export class OrdersHandler extends BaseHandler {
   private subscribeToCreateOrderEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<ICreateOrder>(topic, async (message) => {
       await this.orderService.createOrder(message.value);
     });
@@ -34,7 +34,7 @@ export class OrdersHandler extends BaseHandler {
   private subscribeToUpdateOrderEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<IUpdateOrder & { id: number }>(topic, async (message) => {
       await this.orderService.updateOrderStatus(message.value.id, message.value.status);
     });
@@ -43,7 +43,7 @@ export class OrdersHandler extends BaseHandler {
   private subscribeToCancelOrderEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<{ id: number }>(topic, async (message) => {
       await this.orderService.cancelOrder(message.value.id);
     });

@@ -17,15 +17,18 @@ export class KafkaProducer {
     });
   }
 
-  async connect() {
+  async connect(): Promise<void> {
     await this.producer.connect();
   }
 
-  async disconnect() {
+  async disconnect(): Promise<void> {
     await this.producer.disconnect();
   }
 
-  async send<TPayload>(topic: string, message: KafkaMessage<TPayload> | KafkaMessage<TPayload>[]) {
+  async send<TPayload>(
+    topic: string,
+    message: KafkaMessage<TPayload> | KafkaMessage<TPayload>[]
+  ): Promise<void> {
     const messages = Array.isArray(message) ? message : [message];
     await this.producer.send({
       topic,
@@ -36,11 +39,14 @@ export class KafkaProducer {
     });
   }
 
-  async sendDLQ(topic: string, message: Message | Message[]) {
+  async sendDLQ(topic: string, message: Message | Message[]): Promise<void> {
     await this.send(`${topic}-dlq`, message);
   }
 
-  async sendBatch(messages: TopicMessages[], config?: Omit<ProducerBatch, 'topicMessages'>) {
+  async sendBatch(
+    messages: TopicMessages[],
+    config?: Omit<ProducerBatch, 'topicMessages'>
+  ): Promise<void> {
     await this.producer.sendBatch({ topicMessages: messages, ...config });
   }
 }

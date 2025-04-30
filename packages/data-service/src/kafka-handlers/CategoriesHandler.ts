@@ -25,7 +25,7 @@ export class CategoriesHandler extends BaseHandler {
   private subscribeToCreateCategoryEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<ICreateCategory>(topic, async (message) => {
       await this.categoryService.createCategory(message.value);
     });
@@ -34,7 +34,7 @@ export class CategoriesHandler extends BaseHandler {
   private subscribeToUpdateCategoryEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<IUpdateCategory & { id: number }>(topic, async (message) => {
       await this.categoryService.updateCategory(message.value.id, message.value);
     });
@@ -43,7 +43,7 @@ export class CategoriesHandler extends BaseHandler {
   private subscribeToDeleteCategoryEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<{ id: number }>(topic, async (message) => {
       await this.categoryService.deleteCategory(message.value.id);
     });

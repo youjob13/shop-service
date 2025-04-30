@@ -10,6 +10,15 @@
   "references": [
     {
       "path": "../../packages/dto/tsconfig.json"
+    },
+    {
+      "path": "../../packages/kafka-client/tsconfig.json"
+    },
+    {
+      "path": "../../packages/shared/tsconfig.json"
+    },
+    {
+      "path": "../../packages/core/tsconfig.json"
     }
   ]
 }

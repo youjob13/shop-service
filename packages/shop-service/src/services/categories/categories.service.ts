@@ -26,6 +26,7 @@ export class CategoriesService implements ICategoriesService {
       }
 
       return await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Failed to get categories: ${error.message}`);
     }
@@ -42,6 +43,7 @@ export class CategoriesService implements ICategoriesService {
       }
 
       return await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Failed to get category with id ${id}: ${error.message}`);
     }

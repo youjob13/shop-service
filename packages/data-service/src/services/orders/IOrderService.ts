@@ -1,4 +1,4 @@
-import { ICreateOrder, IOrder, IOrderQuery, IOrderStatus, IUpdateOrder } from '@shop/dto/schemas';
+import { ICreateOrder, IOrder, IOrderQuery, IOrderStatus } from '@shop/dto/schemas';
 
 export interface IOrderService {
   createOrder(order: ICreateOrder): Promise<IOrder>;

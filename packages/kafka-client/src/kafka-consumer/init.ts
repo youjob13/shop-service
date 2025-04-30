@@ -8,7 +8,7 @@ let consumer: KafkaConsumer;
 export async function initKafkaConsumer(
   config: KafkaConfig,
   consumerConfig: ConsumerConfig & { logger: Omit<Logger, 'namespace' | 'setLogLevel'> }
-) {
+): Promise<KafkaConsumer> {
   if (!consumer) {
     const kafka = initKafkaClient(config);
     console.log('DEBUG. INIT KAFKA CONSUMER');

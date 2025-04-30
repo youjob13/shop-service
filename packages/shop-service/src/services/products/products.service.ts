@@ -30,6 +30,7 @@ export class ProductsService implements IProductsService {
       }
 
       return await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Failed to get products: ${error.message}`);
     }
@@ -46,6 +47,7 @@ export class ProductsService implements IProductsService {
       }
 
       return await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Failed to get product with id ${id}: ${error.message}`);
     }

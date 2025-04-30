@@ -20,7 +20,7 @@ export class KafkaConsumer {
     this.logger = config.logger;
   }
 
-  async connect() {
+  async connect(): Promise<void> {
     await this.consumer.connect();
     this.logger.info(`[KafkaConsumer] Connected to Kafka`);
   }
@@ -28,12 +28,12 @@ export class KafkaConsumer {
   async subscribe<TPayload>(
     topic: string,
     callback: (message: Omit<Message, 'value'> & { value: TPayload }) => Promise<void>
-  ) {
+  ): Promise<void> {
     await this.consumer.subscribe({ topic, fromBeginning: true });
     this.logger.info(`[KafkaConsumer] Subscribed to topic: ${topic}`);
 
     await this.consumer.run({
-      eachMessage: async ({ topic, partition, message }) => {
+      eachMessage: async ({ topic, message }) => {
         const parsedMessage = JSON.parse(message.value?.toString() ?? '{}');
 
         let attempt = 0;

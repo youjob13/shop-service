@@ -5,7 +5,7 @@ import { KafkaProducer } from './kafka-producer.js';
 
 let producer: KafkaProducer;
 
-export function initKafkaProducer(config: KafkaConfig, producerConfig?: ProducerConfig) {
+function initKafkaProducer(config: KafkaConfig, producerConfig?: ProducerConfig): KafkaProducer {
   if (!producer) {
     const kafka = initKafkaClient(config);
     producer = new KafkaProducer(kafka, producerConfig);
@@ -14,4 +14,4 @@ export function initKafkaProducer(config: KafkaConfig, producerConfig?: Producer
   return producer;
 }
 
-export { KafkaProducer };
+export { initKafkaProducer, KafkaProducer };

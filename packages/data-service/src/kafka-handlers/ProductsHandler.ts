@@ -25,7 +25,7 @@ export class ProductsHandler extends BaseHandler {
   private subscribeToCreateProductEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<ICreateProduct>(topic, async (message) => {
       await this.productService.createProduct(message.value);
     });
@@ -34,7 +34,7 @@ export class ProductsHandler extends BaseHandler {
   private subscribeToUpdateProductEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<IUpdateProduct & { id: number }>(topic, async (message) => {
       await this.productService.updateProduct(message.value.id, message.value);
     });
@@ -43,7 +43,7 @@ export class ProductsHandler extends BaseHandler {
   private subscribeToDeleteProductEvent(
     topic: string,
     kafkaConsumer: Awaited<ReturnType<typeof initKafkaConsumer>>
-  ) {
+  ): void {
     kafkaConsumer.subscribe<{ id: number }>(topic, async (message) => {
       await this.productService.deleteProduct(message.value.id);
     });
