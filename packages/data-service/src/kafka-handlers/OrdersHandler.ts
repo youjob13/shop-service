@@ -2,13 +2,14 @@ import { TOPICS } from '@shop/core/kafka';
 
 import { BaseHandler } from './BaseHandler.js';
 import { initKafkaConsumer } from '@shop/kafka-client/kafka-consumer';
-import { OrderService } from 'src/services/orders/order.service.js';
 import { ICreateOrder, IUpdateOrder } from '@shop/dto/schemas';
+
+import { IOrderService } from '../services/orders/IOrderService.js';
 
 export class OrdersHandler extends BaseHandler {
   constructor(
     kafkaConsumer: ReturnType<typeof initKafkaConsumer>,
-    private readonly orderService: OrderService
+    private readonly orderService: IOrderService
   ) {
     super(kafkaConsumer);
   }

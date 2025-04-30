@@ -1,6 +1,6 @@
 import { KafkaConfig, ProducerConfig } from 'kafkajs';
 
-import { initKafkaClient } from 'src/init.js';
+import { initKafkaClient } from '../init.js';
 import { KafkaProducer } from './kafka-producer.js';
 
 let producer: KafkaProducer;

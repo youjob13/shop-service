@@ -3,12 +3,13 @@ import { TOPICS } from '@shop/core/kafka';
 import { BaseHandler } from './BaseHandler.js';
 import { initKafkaConsumer } from '@shop/kafka-client/kafka-consumer';
 import { ICreateProduct, IUpdateProduct } from '@shop/dto/schemas';
-import { ProductsService } from 'src/services/products/products.service.js';
+
+import { IProductService } from '../services/products/IProductService.js';
 
 export class ProductsHandler extends BaseHandler {
   constructor(
     kafkaConsumer: ReturnType<typeof initKafkaConsumer>,
-    private readonly productService: ProductsService
+    private readonly productService: IProductService
   ) {
     super(kafkaConsumer);
   }

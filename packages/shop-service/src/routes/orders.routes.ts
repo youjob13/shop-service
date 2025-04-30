@@ -2,25 +2,23 @@ import { z } from 'zod';
 import { FastifyInstance } from 'fastify';
 
 import { initKafkaProducer } from '@shop/kafka-client/kafka-producer';
-
-import { OrderController } from '../controllers/order.controller.js';
+import { HTTP_STATUS } from '@shop/shared/http';
 import {
   OrderSchema,
   CreateOrderSchema,
   UpdateOrderSchema,
   OrderParamsSchema,
   OrderQuerySchema,
-} from '../schemas.js';
-import { OrderService } from '../services/order.service.js';
-import { HTTP_STATUS } from '@shop/shared/http';
-import { RpcService } from 'src/services/rpc.service.js';
-import { config } from 'src/config.js';
+} from '@shop/dto/schemas';
+
+import { config as Config } from '../config.js';
+import { OrderController } from '../controllers/order.controller.js';
+import { OrderService } from '../services/order/order.service.js';
 
 export async function orderRoutes(fastify: FastifyInstance): Promise<void> {
-  const kafkaProducer = initKafkaProducer(config.kafka);
-  const rpcService = new RpcService(kafkaProducer);
-
-  const orderController = new OrderController(new OrderService(rpcService));
+  const kafkaProducer = initKafkaProducer(Config.KAFKA);
+  const orderService = new OrderService(kafkaProducer);
+  const orderController = new OrderController(orderService);
 
   fastify.post('/', {
     schema: {

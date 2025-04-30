@@ -1,7 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { ProductsService } from '../services/products.service.js';
-import { ICreateProduct, IProductParams, IUpdateProduct, IProductQuery } from '../schemas.js';
-import { HTTP_STATUS } from '../constants/http.js';
+import { ICreateProduct, IProductParams, IUpdateProduct, IProductQuery } from '@shop/dto/schemas';
+import { HTTP_STATUS } from '@shop/shared/http';
+
+import { ProductsService } from '../services/products/products.service.js';
 
 export class ProductController {
   constructor(private productService: ProductsService) {}
@@ -26,7 +27,7 @@ export class ProductController {
     request: FastifyRequest<{ Params: IProductParams }>,
     reply: FastifyReply
   ): Promise<never> {
-    const product = await this.productService.getProductById(request.params.id);
+    const product = await this.productService.getProductById(Number(request.params.id));
     return reply.code(HTTP_STATUS.OK).send(product);
   }
 
@@ -37,7 +38,10 @@ export class ProductController {
     }>,
     reply: FastifyReply
   ): Promise<never> {
-    const product = await this.productService.updateProduct(request.params.id, request.body);
+    const product = await this.productService.updateProduct(
+      Number(request.params.id),
+      request.body
+    );
     return reply.code(HTTP_STATUS.OK).send(product);
   }
 
@@ -45,7 +49,7 @@ export class ProductController {
     request: FastifyRequest<{ Params: IProductParams }>,
     reply: FastifyReply
   ): Promise<never> {
-    await this.productService.deleteProduct(request.params.id);
+    await this.productService.deleteProduct(Number(request.params.id));
     return reply.code(HTTP_STATUS.NO_CONTENT).send();
   }
 }

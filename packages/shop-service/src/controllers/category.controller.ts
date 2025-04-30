@@ -1,10 +1,12 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { CategoryService } from '../services/category.service.js';
-import { ICreateCategory, IUpdateCategory } from '../schemas.js';
-import { HTTP_STATUS } from '../constants/http.js';
+
+import { ICreateCategory, IUpdateCategory } from '@shop/dto/schemas';
+import { HTTP_STATUS } from '@shop/shared/http';
+
+import { CategoriesService } from '../services/categories/categories.service.js';
 
 export class CategoryController {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoriesService) {}
 
   async createCategory(
     request: FastifyRequest<{ Body: ICreateCategory }>,
@@ -23,8 +25,7 @@ export class CategoryController {
     request: FastifyRequest<{ Params: { id: string } }>,
     reply: FastifyReply
   ): Promise<never> {
-    const id = parseInt(request.params.id, 10);
-    const category = await this.categoryService.getCategoryById(id);
+    const category = await this.categoryService.getCategoryById(Number(request.params.id));
     return reply.code(HTTP_STATUS.OK).send(category);
   }
 
@@ -35,8 +36,10 @@ export class CategoryController {
     }>,
     reply: FastifyReply
   ): Promise<never> {
-    const id = parseInt(request.params.id, 10);
-    const category = await this.categoryService.updateCategory(id, request.body);
+    const category = await this.categoryService.updateCategory(
+      Number(request.params.id),
+      request.body
+    );
     return reply.code(HTTP_STATUS.OK).send(category);
   }
 
@@ -44,8 +47,7 @@ export class CategoryController {
     request: FastifyRequest<{ Params: { id: string } }>,
     reply: FastifyReply
   ): Promise<never> {
-    const id = parseInt(request.params.id, 10);
-    await this.categoryService.deleteCategory(id);
+    await this.categoryService.deleteCategory(Number(request.params.id));
     return reply.code(HTTP_STATUS.NO_CONTENT).send();
   }
 }

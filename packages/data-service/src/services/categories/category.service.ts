@@ -8,8 +8,8 @@ import { ICategoryService } from './ICategoryService.js';
 export class CategoryService implements ICategoryService {
   private static instance: CategoryService;
 
-  constructor() {
-    if (new.target === CategoryService && !CategoryService.instance) {
+  public static getInstance(): CategoryService {
+    if (!CategoryService.instance) {
       CategoryService.instance = new CategoryService();
     }
 

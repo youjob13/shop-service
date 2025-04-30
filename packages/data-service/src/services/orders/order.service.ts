@@ -8,11 +8,10 @@ import { IOrderService } from './IOrderService.js';
 export class OrderService implements IOrderService {
   private static instance: OrderService;
 
-  constructor() {
-    if (new.target === OrderService && !OrderService.instance) {
+  public static getInstance(): OrderService {
+    if (!OrderService.instance) {
       OrderService.instance = new OrderService();
     }
-
     return OrderService.instance;
   }
 

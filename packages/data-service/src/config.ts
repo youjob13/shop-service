@@ -14,6 +14,10 @@ const envSchema = z.object({
       max: 100,
       timeWindow: '1 minute',
     }),
+  KAFKA_BROKERS: z.string().default('kafka:9092'),
+  KAFKA_CLIENT_ID: z.string().default('shop-service'),
+  KAFKA_GROUP_ID: z.string().default('shop-service'),
+  KAFKA_CONSUMER_SESSION_TIMEOUT: z.number().default(30000),
 });
 
 const env = envSchema.parse(process.env);
@@ -24,4 +28,8 @@ export const config = {
   HOST: env.HOST,
   DATABASE_URL: env.DATABASE_URL,
   RATE_LIMIT: env.RATE_LIMIT,
+  KAFKA_BROKERS: env.KAFKA_BROKERS,
+  KAFKA_CLIENT_ID: env.KAFKA_CLIENT_ID,
+  KAFKA_GROUP_ID: env.KAFKA_GROUP_ID,
+  KAFKA_CONSUMER_SESSION_TIMEOUT: env.KAFKA_CONSUMER_SESSION_TIMEOUT,
 };

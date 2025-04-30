@@ -7,7 +7,7 @@ import { CategoryController } from '../controllers/category.controller.js';
 import { CategoryService } from '../services/categories/category.service.js';
 
 export async function categoryRoutes(fastify: FastifyInstance): Promise<void> {
-  const categoryController = new CategoryController(new CategoryService());
+  const categoryController = new CategoryController(CategoryService.getInstance());
 
   fastify.get('/', {
     schema: {

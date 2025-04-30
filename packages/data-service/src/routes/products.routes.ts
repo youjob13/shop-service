@@ -8,7 +8,7 @@ import { ProductController } from '../controllers/product.controller.js';
 import { ProductsService } from '../services/products/products.service.js';
 
 export async function productRoutes(fastify: FastifyInstance): Promise<void> {
-  const productController = new ProductController(new ProductsService());
+  const productController = new ProductController(ProductsService.getInstance());
 
   fastify.get('/', {
     schema: {

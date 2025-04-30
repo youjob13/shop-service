@@ -19,7 +19,7 @@ export class ProductController {
     request: FastifyRequest<{ Params: IProductParams }>,
     reply: FastifyReply
   ): Promise<never> {
-    const product = await this.productService.getProductById(request.params.id);
+    const product = await this.productService.getProductById(Number(request.params.id));
     return reply.code(HTTP_STATUS.OK).send(product);
   }
 }

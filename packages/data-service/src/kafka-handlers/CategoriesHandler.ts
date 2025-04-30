@@ -4,12 +4,12 @@ import { BaseHandler } from './BaseHandler.js';
 import { initKafkaConsumer } from '@shop/kafka-client/kafka-consumer';
 import { ICreateCategory, IUpdateCategory } from '@shop/dto/schemas';
 
-import { CategoryService } from '../services/categories/category.service.js';
+import { ICategoryService } from '../services/categories/ICategoryService.js';
 
 export class CategoriesHandler extends BaseHandler {
   constructor(
     kafkaConsumer: ReturnType<typeof initKafkaConsumer>,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: ICategoryService
   ) {
     super(kafkaConsumer);
   }

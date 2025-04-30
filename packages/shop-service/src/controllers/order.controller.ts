@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { OrderService } from '../services/order.service.js';
-import { ICreateOrder, IOrderParams, IUpdateOrder, IOrderQuery } from '../schemas.js';
-import { HTTP_STATUS } from '../constants/http.js';
+import { OrderService } from '../services/order/order.service.js';
+import { ICreateOrder, IOrderParams, IUpdateOrder, IOrderQuery } from '@shop/dto/schemas';
+import { HTTP_STATUS } from '@shop/shared/http';
 
 export class OrderController {
   constructor(private orderService: OrderService) {}
@@ -26,7 +26,7 @@ export class OrderController {
     request: FastifyRequest<{ Params: IOrderParams }>,
     reply: FastifyReply
   ): Promise<never> {
-    const order = await this.orderService.getOrderById(request.params.id);
+    const order = await this.orderService.getOrderById(Number(request.params.id));
     return reply.code(HTTP_STATUS.OK).send(order);
   }
 
@@ -37,7 +37,10 @@ export class OrderController {
     }>,
     reply: FastifyReply
   ): Promise<never> {
-    const order = await this.orderService.updateOrderStatus(request.params.id, request.body.status);
+    const order = await this.orderService.updateOrderStatus(
+      Number(request.params.id),
+      request.body.status
+    );
     return reply.code(HTTP_STATUS.OK).send(order);
   }
 
@@ -45,7 +48,7 @@ export class OrderController {
     request: FastifyRequest<{ Params: IOrderParams }>,
     reply: FastifyReply
   ): Promise<never> {
-    const order = await this.orderService.cancelOrder(request.params.id);
+    const order = await this.orderService.cancelOrder(Number(request.params.id));
     return reply.code(HTTP_STATUS.OK).send(order);
   }
 }

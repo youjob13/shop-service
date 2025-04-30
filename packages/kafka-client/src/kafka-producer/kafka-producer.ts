@@ -1,5 +1,7 @@
 import { Producer, Kafka, ProducerConfig, Message, ProducerBatch, TopicMessages } from 'kafkajs';
 
+type KafkaMessage<TPayload> = Omit<Message, 'value'> & { value: TPayload };
+
 export class KafkaProducer {
   private producer: Producer;
 
@@ -23,10 +25,14 @@ export class KafkaProducer {
     await this.producer.disconnect();
   }
 
-  async send(topic: string, message: Message | Message[]) {
+  async send<TPayload>(topic: string, message: KafkaMessage<TPayload> | KafkaMessage<TPayload>[]) {
+    const messages = Array.isArray(message) ? message : [message];
     await this.producer.send({
       topic,
-      messages: Array.isArray(message) ? message : [message],
+      messages: messages.map((message) => ({
+        ...message,
+        value: JSON.stringify(message.value),
+      })),
     });
   }
 

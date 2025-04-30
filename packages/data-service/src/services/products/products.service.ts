@@ -8,8 +8,8 @@ import { IProductService } from './IProductService.js';
 export class ProductsService implements IProductService {
   private static instance: ProductsService;
 
-  constructor() {
-    if (new.target === ProductsService && !ProductsService.instance) {
+  public static getInstance(): ProductsService {
+    if (!ProductsService.instance) {
       ProductsService.instance = new ProductsService();
     }
 

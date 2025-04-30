@@ -1,6 +1,7 @@
 import { createApp } from '@shop/core/fastify';
 import { initKafkaConsumer } from '@shop/kafka-client/kafka-consumer';
 
+import { config as Config } from './config.js';
 import { productRoutes } from './routes/products.routes.js';
 import { orderRoutes } from './routes/orders.routes.js';
 import { categoryRoutes } from './routes/categories.routes.js';
@@ -29,12 +30,12 @@ app.register(productRoutes, { prefix: Routes.Products });
 app.register(categoryRoutes, { prefix: Routes.Categories });
 
 const kafkaConsumerPromise: ReturnType<typeof initKafkaConsumer> = initKafkaConsumer(
-  { clientId: 'shop-service', brokers: ['localhost:9092'] },
-  { groupId: 'shop-service', retry: { retries: 3 }, logger: app.log }
+  { clientId: 'data-service', brokers: [Config.KAFKA_BROKERS] },
+  { groupId: Config.KAFKA_GROUP_ID, retry: { retries: 3 }, logger: app.log }
 );
 
-new OrdersHandler(kafkaConsumerPromise, new OrderService());
-new ProductsHandler(kafkaConsumerPromise, new ProductsService());
-new CategoriesHandler(kafkaConsumerPromise, new CategoryService());
+new OrdersHandler(kafkaConsumerPromise, OrderService.getInstance());
+new ProductsHandler(kafkaConsumerPromise, ProductsService.getInstance());
+new CategoriesHandler(kafkaConsumerPromise, CategoryService.getInstance());
 
 export { app, kafkaConsumerPromise };

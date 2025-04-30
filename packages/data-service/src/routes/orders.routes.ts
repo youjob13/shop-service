@@ -7,7 +7,7 @@ import { OrderController } from '../controllers/order.controller.js';
 import { OrderService } from '../services/orders/order.service.js';
 
 export async function orderRoutes(fastify: FastifyInstance): Promise<void> {
-  const orderController = new OrderController(new OrderService());
+  const orderController = new OrderController(OrderService.getInstance());
 
   fastify.get('/', {
     schema: {
