@@ -3,15 +3,22 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@shop/*": ["../*/src"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../../packages/dto/tsconfig.json"
+    },
+    {
+      "path": "../../packages/kafka-client/tsconfig.json"
+    },
+    {
+      "path": "../../packages/shared/tsconfig.json"
+    },
+    {
+      "path": "../../packages/core/tsconfig.json"
+    }
+  ]
 }

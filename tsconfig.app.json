@@ -1,0 +1,30 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declarationMap": true
+  },
+  "references": [
+    {
+      "path": "./packages/shop-service/tsconfig.json"
+    },
+    {
+      "path": "./packages/data-service/tsconfig.json"
+    },
+    {
+      "path": "./packages/shared/tsconfig.json"
+    },
+    {
+      "path": "./packages/kafka-client/tsconfig.json"
+    },
+    {
+      "path": "./packages/dto/tsconfig.json"
+    },
+    {
+      "path": "./packages/core/tsconfig.json"
+    }
+  ],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

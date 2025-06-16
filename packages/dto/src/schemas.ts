@@ -34,7 +34,7 @@ export const UpdateProductSchema = z.object({
 export type IUpdateProduct = z.infer<typeof UpdateProductSchema>;
 
 export const ProductParamsSchema = z.object({
-  id: z.string().transform((val) => parseInt(val, 10)),
+  id: z.number(),
 });
 export type IProductParams = z.infer<typeof ProductParamsSchema>;
 
@@ -91,7 +91,7 @@ export const UpdateOrderSchema = z.object({
 export type IUpdateOrder = z.infer<typeof UpdateOrderSchema>;
 
 export const OrderParamsSchema = z.object({
-  id: z.string().transform((val) => parseInt(val, 10)),
+  id: z.number(),
 });
 export type IOrderParams = z.infer<typeof OrderParamsSchema>;
 

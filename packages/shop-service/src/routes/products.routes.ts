@@ -1,19 +1,24 @@
 import { z } from 'zod';
 import { FastifyInstance } from 'fastify';
 
-import { ProductController } from '../controllers/product.controller.js';
 import {
   ProductSchema,
   CreateProductSchema,
   UpdateProductSchema,
   ProductParamsSchema,
   ProductQuerySchema,
-} from '../schemas.js';
-import { ProductsService } from '../services/products.service.js';
-import { HTTP_STATUS } from '../constants/http.js';
+} from '@shop/dto/schemas';
+import { HTTP_STATUS } from '@shop/shared/http';
+import { initKafkaProducer } from '@shop/kafka-client/kafka-producer';
+
+import { config as Config } from '../config.js';
+import { ProductController } from '../controllers/product.controller.js';
+import { ProductsService } from '../services/products/products.service.js';
 
 export async function productRoutes(fastify: FastifyInstance): Promise<void> {
-  const productController = new ProductController(new ProductsService());
+  const kafkaProducer = initKafkaProducer(Config.KAFKA);
+  const productService = new ProductsService(kafkaProducer);
+  const productController = new ProductController(productService);
 
   fastify.post('/', {
     schema: {

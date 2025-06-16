@@ -2,14 +2,15 @@
   "name": "shop-monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "tsc -b tsconfig.app.json",
     "dev": "npm run dev --workspaces",
-    "lint": "npm run lint --workspaces",
-    "format": "npm run format --workspaces",
+    "lint": "npm run lint --if-present --workspaces",
+    "format": "npm run format --if-present --workspaces",
     "start:docker": "sudo docker-compose build --no-cache && sudo docker-compose up"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "@typescript-eslint/parser": "^8.31.0",
     "eslint": "^9.25.1",
     "eslint-config-prettier": "^10.1.2",
+    "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   }

@@ -1,0 +1,21 @@
+{
+  "name": "@shop/core",
+  "version": "1.0.0",
+  "exports": {
+    "./fastify": "./dist/fastify/init.js",
+    "./kafka": "./dist/kafka/config.js"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@fastify/rate-limit": "^10.2.2",
+    "@fastify/swagger": "^9.5.0",
+    "@fastify/swagger-ui": "^5.2.2",
+    "fastify": "^5.3.2",
+    "fastify-type-provider-zod": "^4.0.2",
+    "zod": "^3.24.3"
+  }
+}

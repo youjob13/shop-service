@@ -1,9 +1,21 @@
-import { ICategory, ICreateCategory, IUpdateCategory } from '../schemas.js';
-import { AppError } from '../errors.js';
-import { HTTP_STATUS } from '../constants/http.js';
-import prisma from '../db.js';
+import { ICategory, ICreateCategory, IUpdateCategory } from '@shop/dto/schemas';
+import { AppError } from '@shop/shared/errors';
+import { HTTP_STATUS } from '@shop/shared/http';
 
-export class CategoryService {
+import prisma from '../../db.js';
+import { ICategoryService } from './ICategoryService.js';
+
+export class CategoryService implements ICategoryService {
+  private static instance: CategoryService;
+
+  public static getInstance(): CategoryService {
+    if (!CategoryService.instance) {
+      CategoryService.instance = new CategoryService();
+    }
+
+    return CategoryService.instance;
+  }
+
   async createCategory(data: ICreateCategory): Promise<ICategory> {
     try {
       return await prisma.category.create({ data });

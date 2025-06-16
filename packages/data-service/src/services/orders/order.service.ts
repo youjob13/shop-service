@@ -1,9 +1,20 @@
-import { AppError } from '../errors.js';
-import { HTTP_STATUS } from '../constants/http.js';
-import { ICreateOrder, IOrder, OrderStatus, IOrderQuery, IOrderStatus } from '../schemas.js';
-import prisma from '../db.js';
+import { AppError } from '@shop/shared/errors';
+import { HTTP_STATUS } from '@shop/shared/http';
+import { ICreateOrder, IOrder, OrderStatus, IOrderQuery, IOrderStatus } from '@shop/dto/schemas';
 
-export class OrderService {
+import prisma from '../../db.js';
+import { IOrderService } from './IOrderService.js';
+
+export class OrderService implements IOrderService {
+  private static instance: OrderService;
+
+  public static getInstance(): OrderService {
+    if (!OrderService.instance) {
+      OrderService.instance = new OrderService();
+    }
+    return OrderService.instance;
+  }
+
   async createOrder(data: ICreateOrder): Promise<IOrder> {
     try {
       const items = await Promise.all(
