@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2.3'
 
 services:
   app:
@@ -20,10 +20,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./packages/shop-service:/app/packages/shop-service
-      - /app/node_modules
-      - /app/packages/shop-service/node_modules
     networks:
       - shop_network
 
